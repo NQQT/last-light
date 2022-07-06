@@ -1,37 +1,36 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
   },
   resolve: {
-    modules: [path.join(__dirname, "src"), "node_modules"],
-    alias: {
-      react: path.join(__dirname, "node_modules", "react"),
-    },
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx|js|jsx|)$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         resolve: {
-          extensions: [".ts", ".tsx", ".js", ".jsx"],
+          extensions: ['.ts', '.tsx', '.js', '.jsx'],
         },
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
           },
         ],
       },
@@ -39,7 +38,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
     }),
   ],
 };
