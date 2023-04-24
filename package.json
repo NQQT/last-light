@@ -1,13 +1,13 @@
 {
   "name": "last-light",
   "version": "1.0.0",
-  "description": "",
+  "description": "A survival choose your own adventure book",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode=development --open --hot",
     "build": "webpack --mode=production",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
     "storybook:deploy": "storybook-to-ghpages",
     "test": "npm run lint && npm jest",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
