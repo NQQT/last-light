@@ -1,28 +1,34 @@
 import React from 'react';
-import { Stack, Button, Badge } from '@mui/material';
+import { Badge, Button, Stack } from '@mui/material';
 import { storybookSetupTemplate } from '@library/storybook';
-import { TreeContextProvider, useTreeState } from './assets';
+import { createReactContextState } from 'assets';
+
+const [ContextProvider, useContext] = createReactContextState({
+  count: 0,
+});
+
+const updateCount = (count) => useContext({ count });
 
 const template = storybookSetupTemplate((args) => {
   return (
-    <TreeContextProvider>
+    <ContextProvider>
       <TestGroup />
-    </TreeContextProvider>
+    </ContextProvider>
   );
 });
 
 const TestGroup = React.memo(() => {
-  const counter = useTreeState('count');
+  const { count } = useContext();
   return (
     <Stack spacing={2} direction="row">
       <Badge badgeContent={4} color="primary">
         <Button
           variant="text"
           onClick={() => {
-            counter((counter() || 0) + 1);
+            updateCount(count + 1);
           }}
         >
-          {counter() || 0}
+          {count}
         </Button>
       </Badge>
       <Button variant="contained">Contained</Button>
