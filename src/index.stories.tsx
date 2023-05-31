@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge, Button, Stack } from '@mui/material';
 import { storybookSetupTemplate } from '@library/storybook';
-import { createReactContextState } from 'assets';
+import { createReactContextState } from '../../../common/assets';
 
 const [ContextProvider, useContext] = createReactContextState({
   count: 0,
