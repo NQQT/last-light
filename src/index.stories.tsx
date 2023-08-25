@@ -2,6 +2,7 @@ import React from 'react';
 import { Badge, Button, Stack } from '@mui/material';
 import { storybookSetupTemplate } from '@library/storybook';
 import { createReactContextState } from '@common/assets';
+import { useMemory } from '@common/assets/src/hooks/memory';
 
 const [ContextProvider, useContext] = createReactContextState({
   count: 0,
@@ -18,17 +19,21 @@ const template = storybookSetupTemplate((args) => {
 });
 
 const TestGroup = React.memo(() => {
-  const { count } = useContext();
+  const memory = useMemory({
+    count: 1,
+    level: { start: 1 },
+  });
+
   return (
     <Stack spacing={2} direction="row">
       <Badge badgeContent={4} color="primary">
         <Button
           variant="text"
           onClick={() => {
-            updateCount(count + 1);
+            memory.level.start++;
           }}
         >
-          {count}
+          {memory.level.start}
         </Button>
       </Badge>
       <Button variant="contained">Contained</Button>
